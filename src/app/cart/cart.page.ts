@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
+import { NavigationExtras, Router } from '@angular/router';
 
 import { GlobalVariable } from '../../app/global';
 
@@ -31,6 +32,15 @@ export class CartPage implements OnInit {
     if(this.cartList.length > 0){
       this.calculateCart();
     } 
+  }
+
+  openCourse(course: any){
+    let navigationExtras: NavigationExtras = { 
+      state: { 
+        course: course
+      } 
+    };
+    this.navCtrl.navigateForward('course', navigationExtras);
   }
 
   addToWishList(course: any){

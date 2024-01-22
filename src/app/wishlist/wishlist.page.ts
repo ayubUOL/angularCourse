@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { NavigationExtras, Router } from '@angular/router';
 import { GlobalVariable } from '../../app/global';
 
 @Component({
@@ -9,17 +11,28 @@ import { GlobalVariable } from '../../app/global';
 export class WishlistPage implements OnInit {
   wishlist: any[] = [];
 
-  constructor(public global: GlobalVariable) { }
+  constructor(public global: GlobalVariable, public navCtrl: NavController) { }
 
   ngOnInit() {
   }
 
   ionViewWillEnter(){
+    this.wishlist = [];
+
     this.global.jsonData.forEach((element: any) => {
       if(element.addedToWishList){
         this.wishlist.push(element);
       }
     });
+  }
+
+  openCourse(course: any){
+    let navigationExtras: NavigationExtras = { 
+      state: { 
+        course: course
+      } 
+    };
+    this.navCtrl.navigateForward('course', navigationExtras);
   }
 
   addToCart(course: any){

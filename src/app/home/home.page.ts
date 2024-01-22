@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, IonRouterOutlet, ModalController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { NavigationExtras, Router } from '@angular/router';
 
 import { GlobalVariable } from '../../app/global';
