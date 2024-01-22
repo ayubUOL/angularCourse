@@ -76,7 +76,7 @@
               <ion-col size="6">
                 <ion-item class="ion-item-input" lines="none" mode="ios">
                   <ion-label position="stacked">Experience</ion-label>
-                  <ion-select justify="space-between" placeholder="Select your experience">
+                  <ion-select justify="space-between" placeholder="Select your experience" [(ngModel)]="experience" [ngModelOptions]="{standalone: true}">
                     <ion-select-option value="0to5">0-5</ion-select-option>
                     <ion-select-option value="5to10">5-10</ion-select-option>
                     <ion-select-option value="10Above">10 & above</ion-select-option>
@@ -87,7 +87,7 @@
               <ion-col size="6">
                 <ion-item class="ion-item-input" lines="none" mode="ios">
                   <ion-label position="stacked">Expertise</ion-label>
-                  <ion-select justify="space-between" placeholder="Select your Expertise">
+                  <ion-select justify="space-between" placeholder="Select your Expertise" [(ngModel)]="expertise" [ngModelOptions]="{standalone: true}">
                     <ion-select-option value="frontend">Frontend</ion-select-option>
                     <ion-select-option value="backend">Backend</ion-select-option>
                   </ion-select>
