@@ -1,0 +1,102 @@
+<ion-header>
+  <app-header-component></app-header-component>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col size="8">
+      <h4>Cart Details</h4>
+
+      <ion-row>
+        <ion-col size="12" size-sm="0.5"></ion-col>
+    
+        <ion-col size="12" size-sm="11">
+          <ion-row>
+            <ion-col size="12" size-sm="12" size-md="12" size-lg="4" *ngFor="let course of cartList; let i = index;">
+              <div class="card" *ngIf="course.addedToCart">
+                <div class="card_header">
+                  <span class="course_title">{{ course?.author }}</span>
+                  <span class="course_subtitle">{{ course?.courseName }}</span>
+    
+                  <ion-row class="tags">
+                    <ion-col size="auto" *ngFor="let tag of course?.tags">
+                      <ion-badge color="primary">{{ tag }}</ion-badge>
+                    </ion-col>
+                  </ion-row>
+                </div>
+    
+                <ion-row class="card_content">
+                  <ion-col size="6">
+                    <span class="price" *ngIf="course?.discountValue > 0">
+                      <s>{{ course?.currencySymbol }}{{ course?.actualPrice }}</s>
+                      <ion-text color="danger">&nbsp;{{ course?.currencySymbol }}{{ course?.discountedPrice }}</ion-text> ({{ course?.discountPercentage }} Off)
+                    </span>
+    
+                    <span class="price" *ngIf="course?.discountValue == 0">
+                      {{ course?.currencySymbol }}{{ course?.actualPrice }}
+                    </span>
+                  </ion-col>
+    
+                  <ion-col size="2">
+                    <ion-icon class="cart" [name]="course?.addedToWishList ? 'star' : 'star-outline'" color="warning" (click)="addToWishList(course)"></ion-icon>
+                  </ion-col>
+    
+                  <ion-col size="2">
+                    <ion-icon class="cart" name="trash-outline" color="danger" (click)="removeFromCart(course, i)"></ion-icon>
+                  </ion-col>
+    
+                  <ion-col size="2">
+                    <ion-icon class="cart" name="arrow-forward" color="primary"></ion-icon>
+                  </ion-col>
+                </ion-row>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+    
+        <ion-col size="12" size-sm="0.5"></ion-col>
+      </ion-row>
+    </ion-col>
+
+    <ion-col size="4">
+      <h4>Checkout</h4>
+
+      <ion-row>
+        <ion-col size="12" *ngFor="let course of cartList; let i = index;">
+          <ion-item [button]="true" detail="false">
+            <ion-icon slot="start" class="cart" name="trash-outline" color="danger" (click)="removeFromCart(course, i)"></ion-icon>
+
+            <ion-label>
+              <ion-text>{{ course.courseName }}</ion-text>
+              <br/>
+              <strong>{{ course.author }}</strong>
+            </ion-label>
+            <div class="metadata-end-wrapper" slot="end">
+              <ion-note color="medium" *ngIf="course?.discountValue > 0">
+                <s>{{ course?.currencySymbol }}{{ course?.actualPrice }}</s>
+                <br/>
+                <strong><ion-text color="danger">&nbsp;{{ course?.currencySymbol }}{{ course?.discountedPrice }}</ion-text></strong> ({{ course?.discountPercentage }} Off)
+              </ion-note>
+
+              <ion-note color="medium" *ngIf="course?.discountValue == 0">
+                <strong>{{ course?.currencySymbol }}{{ course?.actualPrice }}</strong>
+              </ion-note>
+            </div>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+<ion-footer>
+  <ion-row>
+    <ion-col size="8"></ion-col>
+
+    <ion-col size="4">
+      <h5><ion-text color="primary"><b>Total:</b> ₹{{ total | number: '0.2-2' }}</ion-text></h5>
+      <p><ion-text color="success"><b>Savings:</b> ₹{{ savings | number: '0.2-2' }}</ion-text></p>
+      <ion-button *ngIf="cartList.length > 0" expand="block" color="success" (click)="checkout()">Checkout</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

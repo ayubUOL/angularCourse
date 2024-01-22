@@ -1,0 +1,124 @@
+<ion-header>
+  <app-header-component></app-header-component>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col size="12" size-sm="1.5"></ion-col>
+
+    <ion-col size="12" size-sm="9">
+      <img src="/assets/img/profile.jpg" />
+
+      <form [formGroup]="profileForm" (ngSubmit)="updateProfile()" novalidate>
+        <ion-row>
+          <ion-col size="4">
+            <ion-item class="ion-item-input" lines="none" mode="ios">
+              <ion-label position="stacked">Display Name</ion-label>
+              <ion-input autocapitalize="sentences" id="name" style="--placeholder-color: #000 !important;" class="placeholder-black"
+                placeholder="Enter Display Name" formControlName="name" type="text"></ion-input>
+            </ion-item>
+    
+            <p class="errorMsg" *ngIf="profileForm.get('name')?.hasError('required') && 
+              (profileForm.get('name')?.dirty || profileForm.get('name')?.touched || submitProfileForm)">
+              <sup>*</sup>Display name required
+            </p>
+          </ion-col>
+  
+          <ion-col size="4">
+            <ion-item class="ion-item-input" lines="none" mode="ios">
+              <ion-label position="stacked">First Name</ion-label>
+              <ion-input autocapitalize="sentences" id="name" style="--placeholder-color: #000 !important;" class="placeholder-black"
+                placeholder="Enter First Name" formControlName="firstName" type="text"></ion-input>
+            </ion-item>
+    
+            <p class="errorMsg" *ngIf="profileForm.get('firstName')?.hasError('required') && 
+              (profileForm.get('firstName')?.dirty || profileForm.get('firstName')?.touched || submitProfileForm)">
+              <sup>*</sup>First name required
+            </p>
+          </ion-col>
+
+          <ion-col size="4">
+            <ion-item class="ion-item-input" lines="none" mode="ios">
+              <ion-label position="stacked">Last Name</ion-label>
+              <ion-input autocapitalize="sentences" id="name" style="--placeholder-color: #000 !important;" class="placeholder-black"
+                placeholder="Enter Last Name" formControlName="lastName" type="text"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+  
+        <ion-row>
+          <ion-col size="12">
+            <ion-item class="ion-item-input" lines="none" mode="ios">
+              <ion-textarea label="About Yourself" placeholder="Write something about yourself" formControlName="about" [counter]="true" maxlength="100"></ion-textarea>
+            </ion-item>
+
+            <ion-item class="ion-item-input" lines="none" mode="ios">
+              <ion-label position="stacked">Area Of Interest</ion-label>
+              <ion-select justify="space-between" formControlName="interest" placeholder="Select Area Of Interest" [multiple]="true">
+                <ion-select-option value="React">React</ion-select-option>
+                <ion-select-option value="Angular">Angular</ion-select-option>
+                <ion-select-option value="JavaScript">JavaScript</ion-select-option>
+                <ion-select-option value="Node JS">Node JS</ion-select-option>
+                <ion-select-option value="HTML">HTML</ion-select-option>
+                <ion-select-option value="CSS">CSS</ion-select-option>
+                <ion-select-option value="React">Vue</ion-select-option>
+                <ion-select-option value="Angular">React Native</ion-select-option>
+                <ion-select-option value="JavaScript">TypeScript</ion-select-option>
+              </ion-select>
+            </ion-item>
+            
+            <br />
+            <ion-checkbox mode="ios" labelPlacement="end" (ionChange)="changeStudent()" [(ngModel)]="student" [ngModelOptions]="{standalone: true}">Student</ion-checkbox>
+            <br />
+            <ion-checkbox mode="ios" labelPlacement="end" (ionChange)="changeProfessional()" [(ngModel)]="professional" [ngModelOptions]="{standalone: true}">Professional</ion-checkbox>
+
+            <ion-row *ngIf="professional">
+              <ion-col size="6">
+                <ion-item class="ion-item-input" lines="none" mode="ios">
+                  <ion-label position="stacked">Experience</ion-label>
+                  <ion-select justify="space-between" placeholder="Select your experience">
+                    <ion-select-option value="0to5">0-5</ion-select-option>
+                    <ion-select-option value="5to10">5-10</ion-select-option>
+                    <ion-select-option value="10Above">10 & above</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+
+              <ion-col size="6">
+                <ion-item class="ion-item-input" lines="none" mode="ios">
+                  <ion-label position="stacked">Expertise</ion-label>
+                  <ion-select justify="space-between" placeholder="Select your Expertise">
+                    <ion-select-option value="frontend">Frontend</ion-select-option>
+                    <ion-select-option value="backend">Backend</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="12">
+                <ion-item class="ion-item-input" lines="none" mode="ios">
+                  <ion-textarea label="Mention your role" placeholder="Write something about your role" formControlName="role" [counter]="true" maxlength="200"></ion-textarea>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        
+        <ion-row>
+          <ion-col size="4">
+          </ion-col>
+
+          <ion-col size="4">
+            <ion-button expand="block" color="success" [disabled]="!profileForm.valid" (click)="updateProfile()">Save</ion-button>
+          </ion-col>
+
+          <ion-col size="4">
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-col>
+
+    <ion-col size="12" size-sm="1.5"></ion-col>
+  </ion-row>
+</ion-content>

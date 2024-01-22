@@ -1,0 +1,26 @@
+div{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    cursor: pointer !important;
+    height: 40px;
+
+    ion-icon{
+        color: #000;
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+
+    p{
+        color: #000;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+}
+
+.currentRoute{
+    border-bottom: 1px solid #3880ff;
+}

@@ -1,0 +1,119 @@
+<ion-header>
+  <app-header-component></app-header-component>
+</ion-header>
+
+<ion-content>
+  <div class="search_bg">
+
+  </div>
+
+  <ion-row>
+    <ion-col size="12" size-sm="1.5"></ion-col>
+
+    <ion-col size="12" size-sm="9">
+      <ion-row>
+        <ion-col size="6">
+          <ion-searchbar class="search-input" clearIcon="close" cancelButtonText="Close" animated debounce="500" placeholder="Search Course title, Author or Tags" [(ngModel)]="search_keyword" 
+          (ionInput)="searchFn()" (ionCancel)="closeSearch()" (ionClear)="clearSearchInput()"></ion-searchbar>
+        </ion-col>
+
+        <ion-col size="2"></ion-col>
+
+        <ion-col size="4">
+          <ion-select justify="space-between" label="Sort By" (ionChange)="handleSort($event)">
+            <ion-select-option value="highToLow">Price: High to Low</ion-select-option>
+            <ion-select-option value="lowToHigh">Price: Low to High</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="!search_keyword && searchedCourses.length == 0">
+        <ion-col size="12" size-sm="12" size-md="12" size-lg="4" *ngFor="let course of global.jsonData | paginate: { itemsPerPage: 4, currentPage: pageIndex }">
+          <div class="card">
+            <div class="card_header">
+              <span class="course_title">{{ course?.author }}</span>
+              <span class="course_subtitle">{{ course?.courseName }}</span>
+
+              <ion-row class="tags">
+                <ion-col size="auto" *ngFor="let tag of course?.tags">
+                  <ion-badge color="primary">{{ tag }}</ion-badge>
+                </ion-col>
+              </ion-row>
+            </div>
+
+            <ion-row class="card_content">
+              <ion-col size="6">
+                <span class="price" *ngIf="course?.discountValue > 0">
+                  <s>{{ course?.currencySymbol }}{{ course?.actualPrice }}</s>
+                  <ion-text color="danger">&nbsp;{{ course?.currencySymbol }}{{ course?.discountedPrice }}</ion-text> ({{ course?.discountPercentage }} Off)
+                </span>
+
+                <span class="price" *ngIf="course?.discountValue == 0">
+                  {{ course?.currencySymbol }}{{ course?.actualPrice }}
+                </span>
+              </ion-col>
+
+              <ion-col size="2">
+                <ion-icon class="cart" [name]="course?.addedToWishList ? 'star' : 'star-outline'" color="warning" (click)="addToWishList(course)"></ion-icon>
+              </ion-col>
+
+              <ion-col size="2">
+                <ion-icon class="cart" [name]="course?.addedToCart ? 'cart' : 'cart-outline'" color="primary" (click)="addToCart(course)"></ion-icon>
+              </ion-col>
+
+              <ion-col size="2">
+                <ion-icon class="cart" name="arrow-forward" color="primary" (click)="openCourse(course)"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="search_keyword && searchedCourses.length > 0">
+        <ion-col size="12" size-sm="12" size-md="12" size-lg="4" *ngFor="let course of searchedCourses | paginate: { itemsPerPage: 4, currentPage: pageIndex }">
+          <div class="card">
+            <div class="card_header">
+              <span class="course_title">{{ course?.author }}</span>
+              <span class="course_subtitle">{{ course?.courseName }}</span>
+
+              <ion-row class="tags">
+                <ion-col size="auto" *ngFor="let tag of course?.tags">
+                  <ion-badge color="primary">{{ tag }}</ion-badge>
+                </ion-col>
+              </ion-row>
+            </div>
+
+            <ion-row class="card_content">
+              <ion-col size="6">
+                <span class="price" *ngIf="course?.discountValue > 0">
+                  <s>{{ course?.currencySymbol }}{{ course?.actualPrice }}</s>
+                  <ion-text color="danger">&nbsp;{{ course?.currencySymbol }}{{ course?.discountedPrice }}</ion-text> ({{ course?.discountPercentage }} Off)
+                </span>
+
+                <span class="price" *ngIf="course?.discountValue == 0">
+                  {{ course?.currencySymbol }}{{ course?.actualPrice }}
+                </span>
+              </ion-col>
+
+              <ion-col size="2">
+                <ion-icon class="cart" [name]="course?.addedToWishList ? 'star' : 'star-outline'" color="warning" (click)="addToWishList(course)"></ion-icon>
+              </ion-col>
+
+              <ion-col size="2">
+                <ion-icon class="cart" [name]="course?.addedToCart ? 'cart' : 'cart-outline'" color="primary" (click)="addToCart(course)"></ion-icon>
+              </ion-col>
+
+              <ion-col size="2">
+                <ion-icon class="cart" name="arrow-forward" color="primary" (click)="openCourse(course)"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <pagination-controls (pageChange)="pageIndex = $event"></pagination-controls>
+    </ion-col>
+
+    <ion-col size="12" size-sm="1.5"></ion-col>
+  </ion-row>
+</ion-content>

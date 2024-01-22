@@ -1,0 +1,57 @@
+<ion-header>
+  <app-header-component></app-header-component>
+</ion-header>
+
+<ion-content>
+  <h4>My Wish List</h4>
+
+  <ion-row>
+    <ion-col size="12" size-sm="1.5"></ion-col>
+
+    <ion-col size="12" size-sm="9">
+      <ion-row>
+        <ion-col size="12" size-sm="12" size-md="12" size-lg="4" *ngFor="let course of wishlist; let i = index;">
+          <div class="card" *ngIf="course.addedToWishList">
+            <div class="card_header">
+              <span class="course_title">{{ course?.author }}</span>
+              <span class="course_subtitle">{{ course?.courseName }}</span>
+
+              <ion-row class="tags">
+                <ion-col size="auto" *ngFor="let tag of course?.tags">
+                  <ion-badge color="primary">{{ tag }}</ion-badge>
+                </ion-col>
+              </ion-row>
+            </div>
+
+            <ion-row class="card_content">
+              <ion-col size="6">
+                <span class="price" *ngIf="course?.discountValue > 0">
+                  <s>{{ course?.currencySymbol }}{{ course?.actualPrice }}</s>
+                  <ion-text color="danger">&nbsp;{{ course?.currencySymbol }}{{ course?.discountedPrice }}</ion-text> ({{ course?.discountPercentage }} Off)
+                </span>
+
+                <span class="price" *ngIf="course?.discountValue == 0">
+                  {{ course?.currencySymbol }}{{ course?.actualPrice }}
+                </span>
+              </ion-col>
+
+              <ion-col size="2">
+                <ion-icon class="cart" name="trash-outline" color="danger" (click)="removeFromWishList(course, i)"></ion-icon>
+              </ion-col>
+
+              <ion-col size="2">
+                <ion-icon class="cart" [name]="course?.addedToCart ? 'cart' : 'cart-outline'" color="primary" (click)="addToCart(course)"></ion-icon>
+              </ion-col>
+
+              <ion-col size="2">
+                <ion-icon class="cart" name="arrow-forward" color="primary"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+
+    <ion-col size="12" size-sm="1.5"></ion-col>
+  </ion-row>
+</ion-content>

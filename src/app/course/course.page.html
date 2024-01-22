@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Course detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="search_bg">
+
+  </div>
+
+  <ion-row>
+    <ion-col size="1.5"></ion-col>
+
+    <ion-col size="9">
+      <ion-breadcrumbs>
+        <ion-breadcrumb href="#home">All Courses</ion-breadcrumb>
+        <ion-breadcrumb href="#course">{{ course?.courseName }}</ion-breadcrumb>
+      </ion-breadcrumbs>
+    
+      <ion-row>
+        <ion-col size="4" style="padding-top: 15px;">
+          <span class="price" *ngIf="course?.discountValue > 0">
+            <s>{{ course?.currencySymbol }}{{ course?.actualPrice }}</s>
+            <ion-text color="success">&nbsp;{{ course?.currencySymbol }}{{ course?.discountedPrice }}</ion-text> ({{ course?.discountPercentage }} Off)
+          </span>
+    
+          <span class="price" *ngIf="course?.discountValue == 0">
+            {{ course?.currencySymbol }}{{ course?.actualPrice }}
+          </span>
+        </ion-col>
+
+        <ion-col size="2">
+          <ion-badge *ngIf="course?.remainingTime < 0" color="danger" class="time_badge"><b>00:00 m</b></ion-badge>
+          <ion-badge *ngIf="course?.remainingTime > 0" color="danger" class="time_badge"><b>{{ course?.remainingTime * 1000 | date:'mm:ss' }} m</b></ion-badge>
+        </ion-col>
+
+        <ion-col size="3">
+          <ion-button expand="block" color="success" (click)="addToCart(course)">Add to Cart</ion-button>
+        </ion-col>
+
+        <ion-col size="3">
+          <ion-button expand="block" color="warning" (click)="addToWishList(course)">Add to WishList</ion-button>
+        </ion-col>
+      </ion-row>
+
+      <h4>Description</h4>
+      <p>This course is for {{ course?.courseName }} newbies and anyone looking to get a solid foundation. It’s designed to teach you everything you need to start building web applications in {{ course?.courseName }} right away.</p>
+
+      <ul>
+        <li>1. Basics</li>
+        <li>2. Understanding of Wireframes</li>
+        <li>3. Build static HTML/CSS with Bootstrap 4</li>
+        <li>4. Github and push your first commit.</li>
+        <li>5. Include Designed CSS and SASS assets</li>
+        <li>6. Deployment</li>
+      </ul>
+
+      <div class="video_container">
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/yOWB4P1Nz9A"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </ion-col>
+
+    <ion-col size="1.5"></ion-col>
+  </ion-row>
+</ion-content>
